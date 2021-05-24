@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-raven-config
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: raven-config
+data:
+  application.properties: |
+    spring.servlet.multipart.max-file-size=128MB
+    spring.servlet.multipart.max-request-size=128MB
+    spring.servlet.multipart.enabled=true
+    base.dir.location=/opt/raven/raven-data
+    data.dir.location=${base.dir.location}/data
+    dictionary.dir.location=${base.dir.location}/dictionary
+    dictionary.json.location=${base.dir.location}/dictionary/dictionary.json
+    jobDetails.dir.location=${base.dir.location}/job
+    job.stat.json.location=${base.dir.location}/job/jobStatistics.json
+    job.history.json.location=${base.dir.location}/job/jobHistory.json
+    equivalence.mapping.dir.location=${base.dir.location}/equivalenceMapping
+    equivalence.mapping.json.location=${base.dir.location}/equivalenceMapping/equivalenceMapping.json
+    spring.jackson.serialization.indent_output=true
+    spring.jackson.serialization.write_dates_as_timestamps=false
+    spring.jackson.serialization.write_durations_as_timestamps=false
+    logging.config=classpath:logback-spring.xml
+    raven.bucket.name=bucket-test-raven
+
+    server.ssl.key-store-type=PKCS12
+    server.ssl.key-store=classpath:keystore/keystore.p12
+    server.ssl.key-store-password=password
+    server.ssl.key-alias=tomcat
+    server.port=8443
+
+    spring.datasource.platform=postgres
+    spring.datasource.url=jdbc:postgresql://{{ .Release.Name }}-db-service:5432/raven_marketplace
+    spring.datasource.username=postgres
+    spring.datasource.password={{ .Values.ravendb.password }}
+    spring.jpa.show-sql=true
+    spring.jpa.generate-ddl=true
+    spring.jpa.hibernate.ddl-auto=update
+    spring.datasource.initialization-mode=always
+    spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+    ddl.object.filter.file.path=
+    bq.load.table=
+
+
