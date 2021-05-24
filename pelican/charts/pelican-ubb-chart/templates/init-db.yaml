@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-init-db
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: pelican-web
+data:
+  init-db.sql: |
+    CREATE USER 'pelicanuser'@'%' IDENTIFIED BY '{{ .Values.pelicandb.password }}';
+    GRANT ALL PRIVILEGES ON *.* TO 'pelicanuser'@'%';
+    FLUSH PRIVILEGES
+ 

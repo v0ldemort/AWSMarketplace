@@ -1,0 +1,9 @@
+apiVersion: v1
+description: Pelican validates the data from source to destination accurately at a
+  granular level
+icon: https://www.datametica.com/wp-content/uploads/2020/01/pelican_banner.png
+keywords:
+- datametica
+- ETL-validator
+name: pelican
+version: 0.1.0

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-db-service
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: pelican-db
+spec:
+  type: {{ .Values.pelicandb.service.type }}
+  ports:   
+    - name: pelicandb
+      port: {{ .Values.pelicandb.port }}
+  selector:
+    app.kubernetes.io/component: pelican-db

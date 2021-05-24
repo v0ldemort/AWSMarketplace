@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name:  {{ .Release.Name }}-db
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: pelican-db
+spec:
+  serviceName: {{ .Release.Name }}-db-service
+  replicas: {{ .Values.pelicandb.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: pelican-db
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: pelican-db
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
+      - name: pelican-db
+        image: "{{ .Values.pelicandb.image.repo }}:{{ .Values.pelicandb.image.tag }}"
+        imagePullPolicy: Always
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: pelicanuser@123
+        args:
+          - "--ignore-db-dir=lost+found"    
+        ports:
+        - name: mysql
+          containerPort: {{ .Values.pelicandb.port }}
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+        - name: init-db
+          mountPath: /docker-entrypoint-initdb.d/init-db.sql
+          subPath: init-db.sql
+        livenessProbe:
+          exec:
+            command:
+            - mysqladmin
+            - ping
+            - -h
+            - 127.0.0.1
+          initialDelaySeconds: {{ .Values.pelicandb.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.pelicandb.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.pelicandb.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.pelicandb.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.pelicandb.livenessProbe.failureThreshold }}
+        readinessProbe:
+          exec:
+            command:
+            - mysqladmin
+            - ping
+            - -h
+            - 127.0.0.1
+          initialDelaySeconds: {{ .Values.pelicandb.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.pelicandb.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.pelicandb.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.pelicandb.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.pelicandb.readinessProbe.failureThreshold }}
+      restartPolicy: Always    
+      volumes:
+      - name: mysql-data
+        emptyDir: {}    
+      - name: init-db
+        configMap:
+          name: {{ .Release.Name }}-init-db
+          defaultMode: 420
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-data
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}
+        app.kubernetes.io/component: pelican-db
+    spec:
+      resources:
+        requests:
+          storage: {{ .Values.pelicandb.persistence.size }}
+      accessModes:
+      - ReadWriteOnce     
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 60Gi       
+

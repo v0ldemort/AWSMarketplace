@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-ubbagent-config
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: ubbagent
+data:
+  application.properties: |
+    server.port=3456
+    azure.billing.endpoint=http://localhost:4456/report
+    azure.billing.unit=Gi

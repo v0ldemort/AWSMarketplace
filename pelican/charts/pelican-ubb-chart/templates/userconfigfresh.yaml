@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-userconfigfresh
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: pelican-web
+data:
+  userConfigFresh.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE xml>
+    <installer-configuration version="3">
+        <database-configuration>
+            <host>{{ .Release.Name }}-db-service</host>
+            <port>3306</port>
+            <user-name>pelicanuser</user-name>
+            <password>{{ .Values.pelicandb.password }}</password>
+            <database-name>pelicandbUAT</database-name>
+        </database-configuration>
+        <web-server-configuration>
+            <deployment-root-path>/usr/local/tomcat/webapps</deployment-root-path>
+            <port>9090</port>
+            <run-as-service value="false">
+                <start-command>/usr/local/tomcat/bin/startup.sh</start-command>
+                <stop-command>/usr/local/tomcat/bin/shutdown.sh</stop-command>
+            </run-as-service>
+            </web-server-configuration>
+        <timeout app-server-connection-millis="10000">
+            <connection-attempts>6</connection-attempts>
+        </timeout>
+        <platform>local</platform>
+        <user-configuration>
+            <authentication-mode>ldap</authentication-mode>
+            <no-of-records-per-page>120</no-of-records-per-page>
+            <enable-analyze>true</enable-analyze>
+            <qualify-table-with-db-name-analyze-query>false</qualify-table-with-db-name-analyze-query>
+            <jdbcDriverClassForHive>org.apache.hive.jdbc.HiveDriver</jdbcDriverClassForHive>
+            <enableOptionalTableTagInsert>true</enableOptionalTableTagInsert>
+            <isCacheEnable>true</isCacheEnable>
+            <maxRevisions>10</maxRevisions>
+            <userKerberosPrincipal></userKerberosPrincipal>
+            <userKeyTabLocation></userKeyTabLocation>
+            <authenticationByDistinguishedName>true</authenticationByDistinguishedName>
+            <enterpriseIdAttribute>sAMAccountName</enterpriseIdAttribute>
+            <auditOn>true</auditOn>
+            <allowContextualMenuLabels>true</allowContextualMenuLabels>
+        </user-configuration>
+    </installer-configuration>
+    

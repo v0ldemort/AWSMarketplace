@@ -1,0 +1,47 @@
+# Default values for pelican application
+ubb:
+  image:
+    repo: ""
+    tag: ""
+  port: 3456
+pelican:
+  replicas: 1
+  image:
+    repo: ""
+    tag: ""
+  namespace: "default"
+  service:
+    type: LoadBalancer
+    port: 8080
+    targetPort: 8080
+    # Kubernetes allows traffic from ip's defined in loadBalancerSourceRanges
+    loadBalancerSourceRanges: ""
+pelicandb:
+  replicas: 1
+  image:
+    repo: ""
+    tag: ""
+  port: 3306
+  service:
+    annotations: {}
+    type: ClusterIP
+    targetPort: 3306
+  password: ""
+  livenessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+  readinessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
+  securityContext:
+    enabled: false
+    runAsUser: 999
+    fsGroup: 999
+  persistence:
+    size: 100Gi  

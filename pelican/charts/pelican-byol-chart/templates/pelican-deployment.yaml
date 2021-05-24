@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: pelican-web
+    app: pelican-web
+spec:
+  replicas: {{ .Values.pelican.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}
+      app.kubernetes.io/component: pelican-web
+      app: pelican-web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}
+        app.kubernetes.io/component: pelican-web
+        app: pelican-web
+    spec:
+      securityContext:
+        fsGroup: 100
+      containers:
+        - name: pelican-web
+          image: "{{ .Values.pelican.image.repo }}:{{ .Values.pelican.image.tag }}"
+          imagePullPolicy: Always 
+          env:
+            - name: DB_HOST
+              value: "{{ .Release.Name }}-db-service"
+          ports:
+            - containerPort: 8080
+              name: pelicanui-1
+              protocol: TCP
+          volumeMounts:
+          - name: webapps
+            mountPath: /usr/local/tomcat/webapps
+          - name: userconfigfresh
+            mountPath: /tmp/userConfigFresh.xml
+            subPath: userConfigFresh.xml
+      volumes:
+      - name: userconfigfresh
+        configMap:
+          name: {{ .Release.Name }}-userconfigfresh
+          defaultMode: 420
+      - name: webapps
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-pelican-web-pvc
+        
