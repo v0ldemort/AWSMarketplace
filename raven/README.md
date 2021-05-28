@@ -93,6 +93,11 @@ optional: [--profile <profile>]
 ##
 **Step 3** : Install the Raven Helm chart:
 
+*For parameters description please refer the [section below](#common-configuration-overrides)*
+
+*release-name: is an instance of raven chart running in a k8s(eks) cluster. You may can provide
+a meaningful name like your org initials and raven e.g. dm-raven*
+
 ```
 helm install --set-string raven.service.loadBalancerSourceRanges=<ip-range> \
   --set-string ravendb.password=<password> \
@@ -103,6 +108,24 @@ helm install --set-string raven.service.loadBalancerSourceRanges=<ip-range> \
   --set-string ubb.image.repo=<ravenubb-image-uri> \
   --set-string ubb.image.tag=<ravenubb-image-tag> <release-name> <chart-path>
 ```
+
+Example: Deploy raven with latest images
+```
+helm install --set-string ra+ven.service.loadBalancerSourceRanges=0.0.0.0/0 \
+  --set-string ravendb.password='DbRoot@312!' \
+  --set-string ravendb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-db \
+  --set-string ravendb.image.tag=9.6 \
+  --set-string raven.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web \
+  --set-string raven.image.tag=2.0.2 \
+  --set-string ubb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-ubb \
+  --set-string ubb.image.tag=1.0.1 dmm-raven 
+
+```
+
+*Please Note: The loadBalancerSourceRanges CIDR provided in the example 0.0.0.0/0 makes the raven web service open to everyone.
+As a best practice you should be replacing this CIDR value to your own networks public CIDR or subnet ranges. You can find this 
+CIDR value from your VPN gateway or consult your network admin.*
+
 ##
 **Step 4** : Launch Raven console
 
