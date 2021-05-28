@@ -24,7 +24,7 @@ Following are the latest Pelican Images available at marketplace registry:
 
 Option-1. With Pelican-UBB offer   
 
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:1.0.10](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:2.0.1)
+- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:2.0.1](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:2.0.1)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-ubb:1.0.2](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-ubb:1.0.2)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-db:5.7](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-db:5.7)
 
