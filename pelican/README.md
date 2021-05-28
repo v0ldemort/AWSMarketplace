@@ -24,7 +24,7 @@ Following are the latest Pelican Images available at marketplace registry:
 
 Option-1. With Pelican-UBB offer   
 
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:1.0.10](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:1.0.10)
+- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:1.0.10](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web:2.0.1)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-ubb:1.0.2](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-ubb:1.0.2)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-db:5.7](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-db:5.7)
 
@@ -97,6 +97,11 @@ optional: [--profile <profile>]
 ##
 **Step 3** : Install the Pelican Helm chart (Choose below option as per the offer you opted for)
 
+*For parameters description please refer the [section below](#common-configuration-overrides)*
+
+*release-name: is an instance of pelican chart running in a k8s(eks) cluster. You may can provide
+a meaningful name like your org initials and pelican e.g. dm-pelican*
+
 Option-1: helm install command fot pelican-ubb
 
 ```
@@ -122,7 +127,7 @@ helm install \
     --set-string pelican.image.tag=<pelican-image-tag> <release-name>  charts/pelican-byol-chart
 ```
 
-Example: Deploy UBB with latest images
+Example: Deploy pelican-ubb with latest images
 ```
 helm install \
       --set-string pelican.service.loadBalancerSourceRanges=0.0.0.0/0 \
@@ -130,10 +135,26 @@ helm install \
       --set-string pelicandb.image.repo='709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-db' \
       --set-string pelicandb.image.tag=5.7 \
       --set-string pelican.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-web \
-      --set-string pelican.image.tag=1.0.10 \
+      --set-string pelican.image.tag=2.0.1 \
       --set-string ubb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-ubb/pelican-ubb \
       --set-string ubb.image.tag=1.0.2 dm-pelican charts/pelican-ubb-chart/
 ```
+
+Example: Deploy pelican-byol with latest images
+```
+helm install \
+    --set-string pelican.service.loadBalancerSourceRanges=0.0.0.0/0 \
+    --set-string pelicandb.password='DbRoot@312!' \
+    --set-string pelicandb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db \
+    --set-string pelicandb.image.tag=5.7 \
+    --set-string pelican.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web \
+    --set-string pelican.image.tag=1.0.1 dm-pelican  charts/pelican-byol-chart/
+```
+
+*Please Note: The loadBalancerSourceRanges CIDR provided in the example 0.0.0.0/0 makes the pelican web service open to everyone.
+As a best practice you should be replacing this CIDR value to your own networks public CIDR or subnet ranges. You can find this 
+CIDR value from your VPN gateway or consult your network admin.*
+ 
 ##
 **Step 4** : Launch Pelican console
 
@@ -145,7 +166,7 @@ kubectl get svc
 After running the above command, you will get the LoadBalancer IP address and port number to launch the Pelican application from a web browser with appropriate network configurations (in case of VPN).
 
 ## Common configuration overrides
-Refer to the `values.yaml` file for a full list of available values to override; some common keys are listed here:
+efer to the `values.yaml` file for a full list of available values to override; some common keys are listed here:
 
 | Key                                          | Default value                                 | Description                                                                                                                                                                                                                                                                 |
 | -------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
