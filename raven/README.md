@@ -98,6 +98,25 @@ optional: [--profile <profile>]
 *release-name: is an instance of raven chart running in a k8s(eks) cluster. You may can provide
 a meaningful name like your org initials and raven e.g. dm-raven*
 
+###
+**Prerequisites**
+
+Please download the [AWSMarkeplace repository zip](https://github.com/datametica/AWSMarketplace/archive/refs/heads/master.zip).
+Extract the zip and change directory to AWSMarketplace/raven.
+
+OR
+
+If you have git installed on your system then you can simply clone the repo as shown in below step
+
+```
+git clone https://github.com/datametica/AWSMarketplace.git
+cd AWSMarketplace/raven
+```
+
+Enter into *raven* directory and run the following *helm install* command.
+Make sure the *charts* directory path should be accessible.
+
+
 ```
 helm install --set-string raven.service.loadBalancerSourceRanges=<ip-range> \
   --set-string ravendb.password=<password> \
@@ -118,7 +137,7 @@ helm install --set-string ra+ven.service.loadBalancerSourceRanges=0.0.0.0/0 \
   --set-string raven.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web \
   --set-string raven.image.tag=2.0.2 \
   --set-string ubb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-ubb \
-  --set-string ubb.image.tag=1.0.1 dmm-raven 
+  --set-string ubb.image.tag=1.0.1 dmm-raven charts
 
 ```
 

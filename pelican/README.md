@@ -102,7 +102,26 @@ optional: [--profile <profile>]
 *release-name: is an instance of pelican chart running in a k8s(eks) cluster. You may can provide
 a meaningful name like your org initials and pelican e.g. dm-pelican*
 
-Option-1: helm install command fot pelican-ubb
+###
+**Prerequisites**
+
+Please download the [AWSMarkeplace repository zip](https://github.com/datametica/AWSMarketplace/archive/refs/heads/master.zip). 
+Extract the zip and change directory to AWSMarketplace/pelican.
+
+OR
+ 
+If you have git installed on your system then you can simply clone the repo as shown in below step
+
+```
+git clone https://github.com/datametica/AWSMarketplace.git
+cd AWSMarketplace/pelican
+```
+
+Enter into *pelican* directory and run the following *helm install* command. 
+Make sure the *charts/pelican-byol-chart* or *charts/pelican-ubb-chart* path should be accessible.
+
+###
+**Option-1: helm install command fot pelican-ubb**
 
 ```
 helm install \
@@ -115,7 +134,8 @@ helm install \
       --set-string ubb.image.repo=<pelicanubb-image-uri> \
       --set-string ubb.image.tag=<pelicanubb-image-tag> <release-name> charts/pelican-ubb-chart/
 ```
-Option-2: helm install command for pelican-byol
+###
+**Option-2: helm install command for pelican-byol**
 
 ```
 helm install \
