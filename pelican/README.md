@@ -30,7 +30,7 @@ Option-1. With Pelican-UBB offer
 
 Option-2. With Pelican-BYOL offer
 
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web:1.0.1](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web:1.0.1)
+- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1:1.0.1](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1:1.0.1)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db:5.7](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db:5.7)
 
 
@@ -167,7 +167,7 @@ helm install \
     --set-string pelicandb.password='DbRoot@312!' \
     --set-string pelicandb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db \
     --set-string pelicandb.image.tag=5.7 \
-    --set-string pelican.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web \
+    --set-string pelican.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1 \
     --set-string pelican.image.tag=1.0.1 dm-pelican  charts/pelican-byol-chart/
 ```
 
