@@ -24,7 +24,7 @@ Make sure you have installed the latest version of [AWS CLI](https://aws.amazon.
 **Raven Application images**
 Following are the latest Raven Images available at marketplace registry:
 
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web:2.0.2](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web:2.0.2)
+- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web1:2.0.2](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web1:2.0.2)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-ubb:1.0.1](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-ubb:1.0.1)
 - [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-db:9.6](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-db:9.6)
 
@@ -134,7 +134,7 @@ helm install --set-string ra+ven.service.loadBalancerSourceRanges=0.0.0.0/0 \
   --set-string ravendb.password='DbRoot@312!' \
   --set-string ravendb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-db \
   --set-string ravendb.image.tag=9.6 \
-  --set-string raven.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web \
+  --set-string raven.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-web1 \
   --set-string raven.image.tag=2.0.2 \
   --set-string ubb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-ubb/raven-ubb \
   --set-string ubb.image.tag=1.0.1 dmm-raven charts
