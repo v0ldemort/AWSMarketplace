@@ -55,6 +55,20 @@ eksctl create cluster --name pelican-cluster \
   --vpc-nat-mode HighlyAvailable
 ```
 
+**Note**: Use following cluster create command to create private EKS cluster in existing VPC. Replace <subnetid-1> <subnetid-2>.. with the already provisioned subnet-ids to which you like to launch this EKS cluster.
+
+```
+eksctl create cluster --name pelican-cluster \
+  --vpc-private-subnets=<subnetid-1>,<subnetid-2>
+  --nodegroup-name private-ng1 \
+  --nodes 1 \
+  --node-type t3.large \
+  --node-volume-size 80
+  --ssh-public-key <EC2keypair> \
+  --node-private-networking \
+  --vpc-nat-mode HighlyAvailable
+```
+
 
 **Step 1** : Configure Your EKS cluster
 
