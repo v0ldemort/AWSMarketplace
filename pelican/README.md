@@ -161,6 +161,21 @@ helm install \
     --set-string pelican.image.tag=<pelican-image-tag> <release-name>  charts/pelican-byol-chart
 ```
 
+###
+***Deploy with https LB - need a valid domain cert, refer HTTPS.md file for more details
+
+```
+helm install \
+    --set-string pelican.service.loadBalancerSourceRanges=<ip-range> \
+    --set-string pelicandb.password=<password> \
+    --set-string pelicandb.image.repo=<pelicandb-image-uri> \
+    --set-string pelicandb.image.tag=<pelicandb-image-tag> \
+    --set-string pelican.image.repo=<pelican-image-uri> \
+    --set-string pelican.tls.enabled=true \
+    --set-string pelican.tls.certificateARN=<Cert ARN string from ACM> \
+    --set-string pelican.image.tag=<pelican-image-tag> <release-name>  charts/pelican-byol-chart
+```
+
 Example: Deploy pelican-ubb with latest images
 ```
 helm install \
