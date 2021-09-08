@@ -6,6 +6,11 @@ pelican:
     repo: ""
     tag: ""
   namespace: "default"
+  # uncomment below if https LB is required
+  # if tls enabled set to true, provide certificate ARN received after submitting the cert to ACM
+  #tls:
+  #  enabled: false
+  #  certificateARN: "" 
   service:
     type: LoadBalancer
     port: 8080
