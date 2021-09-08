@@ -161,7 +161,7 @@ helm install \
     --set-string pelican.image.tag=<pelican-image-tag> <release-name>  charts/pelican-byol-chart
 ```
 
-###
+####
 ***Deploy with https LB - need a valid domain cert, refer HTTPS.md file for more details
 
 ```
@@ -197,6 +197,20 @@ helm install \
     --set-string pelicandb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db \
     --set-string pelicandb.image.tag=5.7 \
     --set-string pelican.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1 \
+    --set-string pelican.image.tag=1.0.1 dm-pelican  charts/pelican-byol-chart/
+```
+
+Example: Deploy pelican-byol with latest images and SSL(HTTPS) enabed
+Replace the CertARN with valid string
+```
+helm install \
+    --set-string pelican.service.loadBalancerSourceRanges=0.0.0.0/0 \
+    --set-string pelicandb.password='DbRoot@312!' \
+    --set-string pelicandb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db \
+    --set-string pelicandb.image.tag=5.7 \
+    --set-string pelican.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1 \
+    --set-string pelican.tls.enabled=true \
+    --set-string pelican.tls.certificateARN=<"arn:aws:acm:us-east-1:xxxxxx6443:certificate/6bc4c27d-7ea7-4b5a-a4e5-c0d93d2eefe1"> \
     --set-string pelican.image.tag=1.0.1 dm-pelican  charts/pelican-byol-chart/
 ```
 

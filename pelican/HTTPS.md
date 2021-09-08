@@ -4,6 +4,8 @@ Before running the helms charts one should import the certificates to AWS certif
 
 You have to provide this ARN value to pelican helm chart deploy command
 
+**Please note: use the same region in which your EKS is deployed for pelican. The ACM does not work across region**
+
 ## Certificate import steps
 ### Requirement
 - A valid certificate chain files (crt, key and chain file) [certificate chain is optional]
@@ -25,9 +27,12 @@ You have to provide this ARN value to pelican helm chart deploy command
 ![alt text](resources/import-cert-step6.png)
 
 You can use AWS CLI also instead of console to perform the same, following is the example
+Replace the files with the absolute path of your certifcate files on system and region to which your EKS is deployed or planning to deploy the pelican
 ```
-$ aws acm import-certificate --certificate fileb://nginx-selfsigned.crt  --private-key fileb://nginx-selfsigned.key --profile cogno
+$ aws acm import-certificate --certificate <fileb://cert.crt>  --private-key <fileb://cert.key> --certificate-chain <fileb://chain.crt> --region <region-id>
+
+Sample output:
 {
-    "CertificateArn": "arn:aws:acm:us-west-2:516250856443:certificate/6bc4c27d-7ea7-4b5a-a4e5-c0d93d2eefe1"
+    "CertificateArn": "arn:aws:acm:us-west-2:xxxx:certificate/6bc4c27d-7ea7-4b5a-a4e5-c0d93d2eefe1"
 }
 ```
