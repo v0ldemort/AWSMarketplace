@@ -24,6 +24,19 @@ spec:
         - name: ubbagent
           image: "{{ .Values.ubb.image.repo }}:{{ .Values.ubb.image.tag }}"
           imagePullPolicy: Always
+          env:
+            - name: AWS_ACCESS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-aws-creds
+                  key: aws_access_key_id
+            - name: AWS_SECRET 
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-aws-creds
+                  key: aws_secret_access_key
+            - name: AWS_REGION 
+              value: values.aws_region
           ports:
             - containerPort: {{ .Values.ubb.port }}
               name: ubbagent
