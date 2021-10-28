@@ -82,15 +82,7 @@ This command helps you set up the required IAM permissions required by Pelican P
 eksctl utils associate-iam-oidc-provider --cluster=<clustername> --approve [--profile=<profile>]
 ```
 
-```
-eksctl create iamserviceaccount --name pelican \
---namespace default \
-   --cluster <clustername> \
-   --attach-policy-arn arn:aws:iam::aws:policy/AWSMarketplaceMeteringRegisterUsage \
-   --approve
-
 optional: [--profile <profile>]
-```
 
 ##
 **Step 3** : Install the Pelican Helm chart (Choose below option as per the offer you opted for)
