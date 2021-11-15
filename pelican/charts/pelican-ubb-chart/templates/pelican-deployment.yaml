@@ -36,7 +36,7 @@ spec:
                   name: {{ .Release.Name }}-aws-creds
                   key: aws_secret_access_key
             - name: AWS_REGION 
-              value: values.aws_region
+              value: "{{ .Values.aws_region }}"
           ports:
             - containerPort: {{ .Values.ubb.port }}
               name: ubbagent
