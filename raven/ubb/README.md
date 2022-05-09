@@ -1,5 +1,7 @@
 ## **Raven with metered billing on AWS marketplace**
 
+## ** Note: This is no longer supported. Please refer to raven/byol option. Thanks
+
 ### Overview
 Datametica intends to bring its suite of products starting with the Raven query translation and validation product to the cloud marketplace. We have implemented support to launch and use Raven over Kubernetes and can be integrated with AWS's EKS as a Kubernetes app with the marketplace.
 
