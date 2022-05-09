@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: raven-web
+    app: raven-web
+spec:
+  replicas: {{ .Values.raven.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}
+      app.kubernetes.io/component: raven-web
+      app: raven-web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}
+        app.kubernetes.io/component: raven-web
+        app: raven-web
+    spec:
+      securityContext:
+        fsGroup: 100
+      containers:
+        - name: raven-web
+          image: "{{ .Values.raven.image.repo }}:{{ .Values.raven.image.tag }}"
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - SYS_ADMIN
+          #command: ["/bin/sh", "-c"]
+          #args:
+          #  - java -Xmx16384m -jar raven-web.jar --spring.config.location=application.properties
+          ports:
+            - containerPort: 8443
+              name: ravenui-2
+              protocol: TCP
+            - containerPort: 8080
+              name: ravenui-1
+              protocol: TCP
+          volumeMounts:
+          {{- if .Values.raven.ssl.enabled }}
+          - mountPath: /opt/raven/server/keystore
+            name: keystore
+          {{end}}
+          - name: raven-config
+            mountPath: /opt/raven/server/application.properties
+            subPath: application.properties
+      imagePullSecrets: 
+          - name: azure-secret
+      volumes:
+      {{- if .Values.raven.ssl.enabled }}
+      - name: keystore
+        secret:
+          secretName: {{ .Release.Name }}-ssl-secrets
+      {{end}}
+      - name: raven-config
+        configMap:
+          name: {{ .Release.Name }}-raven-config
+          defaultMode: 420
+          

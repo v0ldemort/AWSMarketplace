@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-db
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: raven-db
+spec:
+  serviceName: {{ .Release.Name }}-db-service
+  replicas: {{ .Values.ravendb.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: raven-db
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: raven-db
+    spec:
+      containers:
+        - name: raven-db
+          image:  "{{ .Values.ravendb.image.repo }}:{{ .Values.ravendb.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.ravendb.port }}
+              name: postgredb
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.ravendb.user }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.ravendb.password }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-data
+              mountPath: /var/lib/postgresql/data
+              subPath: data
+      imagePullSecrets: 
+          - name: azure-secret
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Release.Name }}-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 60Gi          

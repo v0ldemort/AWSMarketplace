@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-db-service
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: raven-db
+spec:
+  ports:
+    - port: {{ .Values.ravendb.port }}
+      name: postgresql
+  clusterIP: None
+  selector:
+    app.kubernetes.io/component: raven-db
