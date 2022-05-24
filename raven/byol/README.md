@@ -1,4 +1,4 @@
-## **Raven with metered billing on AWS marketplace**
+## **Raven with BYOL model (Bring Your Own License) on AWS marketplace**
 
 ### Overview
 Datametica intends to bring its suite of products starting with the Raven query translation and validation product to the cloud marketplace. We have implemented support to launch and use Raven over Kubernetes and can be integrated with AWS's EKS as a Kubernetes app with the marketplace.
@@ -21,11 +21,31 @@ Make sure you have installed the latest version of [AWS CLI](https://aws.amazon.
  
 **For linux systems, use the aws CLI:**
   
-**Raven Application images**
-Following are the latest Raven Images available at marketplace registry:
+**Launch Raven Application Images**
+Follow the below steps to get the latest Raven images:
+ 
+- Login to AWS console, from services drop down select the "AWS Marketplace Subscriptions"
+- Choose "Raven - Automated SQL & ETL Translation - BYOL" from container images offering
+- Click continue to subscribe button at top right corner
+  ![alt text](resources/01_raven-marketplace.png)
 
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-web1:1.0.5](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-web1:1.0.5)
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-db:9.6](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-db:9.6)
+- Go through the offer description and click "Continue to Configuration" button
+  ![alt text](resources/02_raven-marketplace.png)
+  ![alt text](resources/03_raven-marketplace.png)
+
+- From "Fulfillment option" drop down choose - Container Deployment Option
+- From "Software version" drop down choose - Raven Latest Version option
+  ![alt text](resources/04_raven-marketplace.png)
+
+- Click on "Continue to Launch" button
+- From Container images section, copy the latest Image URLs. E.g.
+  ![alt text](resources/05_raven-marketplace.png)
+
+
+```
+CONTAINER_IMAGES="709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-web1:1.0.5,709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-db2:9.6"    
+```
+- Use these container image path for deploying the Raven application on EKS cluster (continue with following details)
 
 ##
 ### Appendix
