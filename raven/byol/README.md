@@ -22,11 +22,15 @@ Make sure you have installed the latest version of [AWS CLI](https://aws.amazon.
 **For linux systems, use the aws CLI:**
   
 **Launch Raven Application Images**
+
 Follow the below steps to get the latest Raven images:
  
 - Login to AWS console, from services drop down select the "AWS Marketplace Subscriptions"
+
 - Choose "Raven - Automated SQL & ETL Translation - BYOL" from container images offering
+
 - Click continue to subscribe button at top right corner
+
   ![alt text](resources/01_raven-marketplace.png)
 
 - Go through the offer description and click "Continue to Configuration" button
@@ -34,10 +38,12 @@ Follow the below steps to get the latest Raven images:
   ![alt text](resources/03_raven-marketplace.png)
 
 - From "Fulfillment option" drop down choose - Container Deployment Option
+
 - From "Software version" drop down choose - Raven Latest Version option
   ![alt text](resources/04_raven-marketplace.png)
 
 - Click on "Continue to Launch" button
+
 - From Container images section, copy the latest Image URLs. E.g.
   ![alt text](resources/05_raven-marketplace.png)
 
@@ -45,6 +51,7 @@ Follow the below steps to get the latest Raven images:
 ```
 CONTAINER_IMAGES="709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-web1:1.0.5,709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-db2:9.6"    
 ```
+
 - Use these container image path for deploying the Raven application on EKS cluster (continue with following details)
 
 ##
