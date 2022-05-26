@@ -1,19 +1,21 @@
 ## **Raven with BYOL model (Bring Your Own License) on AWS marketplace**
 
 ### Overview
-Datametica intends to bring its suite of products starting with the Raven query translation and validation product to the cloud marketplace. We have implemented support to launch and use Raven over Kubernetes and can be integrated with AWS's EKS as a Kubernetes app with the marketplace.
+Datametica intends to bring its suite of migration automation products starting with Datametica's Raven - an automated SQL and ETL translation product to the AWS marketplace. We have implemented support to launch and use Raven over Kubernetes and can be integrated with AWS's EKS as a Kubernetes app with the marketplace.
 
 ### EKS Deployment architecture
 Raven can be deployed using helm charts on EKS, the deployment architecture will look like as below
 
 ![alt text](resources/raven.png)
 
-Raven on EKS accelerates the data translation process between source and destination data bases and performs automated data validations (for redshift). For data persistence the application will sync the translated job details data with PDs.
+Raven on EKS accelerates the SQL and ETL translation process from legacy source systems to cloud-native technology. 
+
 Kubernetes manages Raven single-instance solutions and the Raven UI endpoints by default exposed externally using a LoadBalancer Service on a single port 8080 or 8443 - for HTTP and HTTPS interface.
 
 The sizing and configuration can be customized and managed using ConfigMaps and Helm chart values.yml
 
-The Raven EKS version adapts bring your own license pricing model and one can connect datametica support team <support.raven@datametica.com> for licesing.
+The Raven EKS version adapts brings your own license pricing model and one can connect with Datametica on support.raven@datametica.com or sales.raven@datametica.com or info@datametica.com for licensing.
+
 
 **Prerequisites**
  
