@@ -9,6 +9,6 @@ Pelican can be deployed using helm charts on EKS. There are two offerings as sho
 
 ** To deploy Pelican with usage base billing (UBB) model, refer: [Pelican UBB deployment document](Pelican-UBB-README.md)
 
-** To deploy Pelican with bring your own license (BYOL), refer: [Pelican BYOL deployment document](Pelican-UBB-README.md)
+** To deploy Pelican with bring your own license (BYOL), refer: [Pelican BYOL deployment document](Pelican-BYOL-README.md)
 
 ** To configure TLS Load Balancer, refer: [Access Pelican web UI over https](HTTPS.md)
