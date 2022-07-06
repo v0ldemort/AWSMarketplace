@@ -10,7 +10,7 @@ Raven can be deployed using helm charts on EKS, the deployment architecture will
 
 Raven on EKS accelerates the SQL and ETL translation process from legacy source systems to cloud-native technology. 
 
-Kubernetes manages Raven single-instance solutions and the Raven UI endpoints by default exposed externally using a LoadBalancer Service on a single port 8080 or 8443 - for HTTP and HTTPS interface.
+Kubernetes manages Raven single-instance solutions and the Raven UI endpoints by default exposed externally using a LoadBalancer Service on a single port 8443 - HTTPS interface.
 
 The sizing and configuration can be customized and managed using ConfigMaps and Helm chart values.yml
 
@@ -72,6 +72,7 @@ eksctl create cluster --name raven-cluster \
     --zones us-east-1a,us-east-1b \
     --nodegroup-name private-ng1 \
     --nodes 1 --ssh-public-key <EC2keypair> \
+    --ssh-access \
     --node-private-networking \
     --vpc-nat-mode HighlyAvailable
 ```
@@ -83,9 +84,10 @@ eksctl create cluster --name raven-cluster \
   --vpc-private-subnets=<subnetid-1>,<subnetid-2>
   --nodegroup-name private-ng1 \
   --nodes 1 \
-  --node-type t3.large \
+  --node-type t3a.2xlarge \
   --node-volume-size 80
   --ssh-public-key <EC2keypair> \
+  --ssh-access \
   --node-private-networking \
   --vpc-nat-mode HighlyAvailable
 ```
@@ -151,7 +153,7 @@ helm install --set-string raven.service.loadBalancerSourceRanges=0.0.0.0/0 \
   --set-string ravendb.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-db \
   --set-string ravendb.image.tag=9.6 \
   --set-string raven.image.repo=709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/raven-byol/raven-web1 \
-  --set-string raven.image.tag=1.0.5 dmm-raven charts
+  --set-string raven.image.tag=1.0.5 dm-raven charts
 
 ```
 
