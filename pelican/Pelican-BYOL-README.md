@@ -13,12 +13,34 @@ Make sure you have installed the latest version of [AWS CLI](https://aws.amazon.
 
 **For linux systems, use the aws CLI:**
 
-**Pelican Application images**
+**Launch Pelican application images**
 
-Following are the latest Pelican Images available at marketplace registry:
+Follow the below steps to get the latest Raven images:
 
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1:1.0.1](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-web1:1.0.1)
-- [709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db:5.7](http://709825985650.dkr.ecr.us-east-1.amazonaws.com/datametica/pelican-byol/pelican-db:5.7)
+- Login to AWS console, from services drop down select the "AWS Marketplace Subscriptions"
+
+- Choose "Pelican - Automated Data Validation and Data Migration Testing Product - BYOL" from container images offering
+
+- Click continue to subscribe button at top right corner
+
+  ![alt text](resources/01_pelican-marketplace.png)
+
+- Go through the offer description and click "Continue to Configuration" button
+  ![alt text](resources/02_pelican-marketplace.png)
+  ![alt text](resources/03_pelican-marketplace.png)
+
+- From "Fulfillment option" drop down choose - Container Deployment Option
+
+- From "Software version" drop down choose - Pelican Latest Version option
+  ![alt text](resources/04_pelican-marketplace.png)
+
+- Click on "Continue to Launch" button
+
+- From Container images section, copy the latest Image URLs. E.g.
+  ![alt text](resources/05_pelican-marketplace.png)
+
+- Use these container image path for deploying the Raven application on EKS cluster (continue with following details)
+
 
 ##
 ### Steps to deploy pelican on EKS
@@ -37,6 +59,7 @@ eksctl create cluster --name pelican-cluster \
   --nodegroup-name private-ng1 \
   --nodes 1 \
   --ssh-public-key <EC2keypair> \
+  --ssh-access \
   --node-private-networking \
   --vpc-nat-mode HighlyAvailable
 ```
@@ -51,6 +74,7 @@ eksctl create cluster --name pelican-cluster \
   --node-type t3.large \
   --node-volume-size 80
   --ssh-public-key <EC2keypair> \
+  --ssh-access \
   --node-private-networking \
   --vpc-nat-mode HighlyAvailable
 ```
