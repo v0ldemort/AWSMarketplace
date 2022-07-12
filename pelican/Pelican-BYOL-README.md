@@ -174,6 +174,7 @@ helm install \
 Example: Deploy pelican-byol with latest images and SSL(HTTPS) enabed
 Replace the CertARN with valid string
 ```
+```
 helm install \
     --set-string pelican.service.loadBalancerSourceRanges=0.0.0.0/0 \
     --set-string pelicandb.password='DbRoot@312!' \
